@@ -156,3 +156,9 @@ document.getElementById("memberForm").addEventListener("submit", async (e) => {
     document.getElementById("response").innerHTML = `<p style="color: red;">Error: ${err.message}</p>`;
   }
 });
+
+
+document.getElementById("unlockArea").addEventListener("click", () => {
+  [nameInput, lastNameInput].forEach(input => input.removeAttribute("readonly"));
+  alert("Readonly fields are now editable.");
+});
