@@ -15,7 +15,6 @@ const rotateRight = document.getElementById("rotateRight");
 
 let cropper;
 
-
 // Load members
 const setMembers = (members) => {
   members.forEach((member) => {
