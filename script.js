@@ -12,13 +12,13 @@ const fetchMembers = async () => {
   try {
     const res = await fetch("https://langar-db-csvv.onrender.com/member-full-details");
     const data = await res.json();
-    if (data && Array.isArray(data)) {
+    if (Array.isArray(data)) {
       setMembers(data);
     } else {
-      console.error("Data is not an array or invalid structure.");
+      console.error("Invalid data structure.");
     }
   } catch (err) {
-    console.error("Error fetching members:", err);
+    console.error("Fetch error:", err);
   }
 };
 
@@ -26,32 +26,23 @@ fetchMembers();
 
 document.getElementById("memberForm").addEventListener("submit", async (e) => {
   e.preventDefault();
-
-  const form = e.target;
-  const formData = new FormData(form);
+  const formData = new FormData(e.target);
 
   try {
-    const response = await fetch(
-      "https://langar-db-csvv.onrender.com/edit-member",
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
+    const response = await fetch("https://langar-db-csvv.onrender.com/edit-member", {
+      method: "POST",
+      body: formData,
+    });
 
     const result = await response.json();
-
     const messageEl = document.getElementById("response");
+
     if (response.ok) {
       messageEl.innerHTML = `<p style="color: green;">${result.message}</p>`;
     } else {
-      messageEl.innerHTML = `<p style="color: red;">Error: ${
-        result.error || "Something went wrong"
-      }</p>`;
+      messageEl.innerHTML = `<p style="color: red;">Error: ${result.error || "Something went wrong"}</p>`;
     }
   } catch (err) {
-    document.getElementById(
-      "response"
-    ).innerHTML = `<p style="color: red;">Error: ${err.message}</p>`;
+    document.getElementById("response").innerHTML = `<p style="color: red;">Error: ${err.message}</p>`;
   }
 });

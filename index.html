@@ -3,21 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Edit/Add Member</title>
+  <title>Edit Member</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="form-container">
-    <h2>Edit Member</h2>
+    <h2>Edit Member Details</h2>
     <form id="memberForm">
       <select name="roll_no" id="roll_no" required>
         <option value="">Select Roll Number</option>
-      </select>      
+      </select>
       <input type="text" name="name" placeholder="First Name" />
       <input type="text" name="last_name" placeholder="Last Name" />
       <input type="text" name="phone_no" placeholder="Phone Number" />
       <input type="text" name="address" placeholder="Address" />
-      <input type="file" name="image" accept="image/*" />
+
+      <!-- File Upload -->
+      <label for="imageUpload" class="custom-file-upload">Upload Image</label>
+      <input type="file" name="image" id="imageUpload" accept="image/*" />
+
       <button type="submit">Submit</button>
     </form>
     <div id="response"></div>
