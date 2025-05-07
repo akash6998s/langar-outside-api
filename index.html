@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Edit/Add Member</title>
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Cropper.js CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet" />
 </head>
 <body>
   <div class="form-container">
@@ -16,21 +19,28 @@
 
       <input type="text" readonly name="name" id="name" placeholder="First Name" required />
       <input type="text" readonly name="last_name" id="last_name" placeholder="Last Name" />
-      
-      <!-- Phone number input with pattern for 10-digit numbers starting with 6-9 -->
-      <input type="text" name="phone_no" id="phone_no" placeholder="Phone Number" required pattern="[6-9]{1}[0-9]{9}" maxlength="10" />
-
+      <input type="text" name="phone_no" id="phone_no" placeholder="Phone Number" required pattern="\d{10}" maxlength="10" />
       <input type="text" name="address" id="address" placeholder="Address" required />
 
-      <!-- Custom file upload -->
+      <!-- File upload -->
       <label for="imageUpload" class="custom-file-upload">Upload Image</label>
       <input type="file" name="image" id="imageUpload" accept="image/*" />
+
+      <!-- Image preview and crop -->
+      <div id="imagePreviewContainer" style="display:none; margin-top:10px;">
+        <img id="imagePreview" style="max-width:100%; max-height:300px;" />
+        <button type="button" id="cropButton" style="margin-top:10px;">Crop Image</button>
+      </div>
 
       <button type="submit">Submit</button>
     </form>
     <div id="response"></div>
   </div>
 
+  <!-- Cropper.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+
+  <!-- Main JS -->
   <script src="script.js"></script>
 </body>
 </html>

@@ -5,8 +5,15 @@ const nameInput = document.getElementById("name");
 const lastNameInput = document.getElementById("last_name");
 const phoneInput = document.getElementById("phone_no");
 const addressInput = document.getElementById("address");
-const responseDiv = document.getElementById("response");
 
+const imageUpload = document.getElementById("imageUpload");
+const imagePreview = document.getElementById("imagePreview");
+const imagePreviewContainer = document.getElementById("imagePreviewContainer");
+const cropButton = document.getElementById("cropButton");
+
+let cropper;
+
+// Load members
 const setMembers = (members) => {
   members.forEach((member) => {
     const option = document.createElement("option");
@@ -50,22 +57,62 @@ rollNoSelect.addEventListener("change", () => {
   }
 });
 
+// Image cropper
+imageUpload.addEventListener("change", (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    imagePreview.src = reader.result;
+    imagePreviewContainer.style.display = "block";
+
+    if (cropper) cropper.destroy();
+
+    cropper = new Cropper(imagePreview, {
+      aspectRatio: 1,
+      viewMode: 1,
+    });
+  };
+  reader.readAsDataURL(file);
+});
+
+cropButton.addEventListener("click", () => {
+  if (!cropper) return;
+
+  cropper.getCroppedCanvas().toBlob((blob) => {
+    const croppedFile = new File([blob], "cropped-image.png", { type: "image/png" });
+
+    // Set cropped image to input
+    const dataTransfer = new DataTransfer();
+    dataTransfer.items.add(croppedFile);
+    imageUpload.files = dataTransfer.files;
+
+    // Destroy cropper and show cropped preview
+    cropper.destroy();
+    cropper = null;
+
+    const previewURL = URL.createObjectURL(blob);
+    imagePreview.src = previewURL;
+
+    // Optional: remove crop button and show only the result
+    cropButton.style.display = "none";
+  });
+});
+
+
+// Form submit
 document.getElementById("memberForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const name = nameInput.value.trim();
-  const phone = phoneInput.value.trim();
-  const address = addressInput.value.trim();
-
-  if (!name || !phone || !address) {
-    responseDiv.innerHTML = `<p style="color:red;">Please fill in all required fields.</p>`;
+  if (!nameInput.value.trim() || !phoneInput.value.trim() || !addressInput.value.trim()) {
+    document.getElementById("response").innerHTML = `<p style="color:red;">Please fill in all required fields.</p>`;
     return;
   }
 
-  // Regex: Starts with 6-9 and has exactly 10 digits
-  const phoneRegex = /^[6-9]\d{9}$/;
-  if (!phoneRegex.test(phone)) {
-    responseDiv.innerHTML = `<p style="color:red;">Please enter a valid 10-digit mobile number</p>`;
+  const phoneRegex = /^\d{10}$/;
+  if (!phoneRegex.test(phoneInput.value.trim())) {
+    document.getElementById("response").innerHTML = `<p style="color:red;">Please enter a valid 10-digit mobile number.</p>`;
     return;
   }
 
@@ -79,12 +126,14 @@ document.getElementById("memberForm").addEventListener("submit", async (e) => {
     });
 
     const result = await response.json();
+    const messageEl = document.getElementById("response");
+
     if (response.ok) {
-      responseDiv.innerHTML = `<p style="color: green;">${result.message}</p>`;
+      messageEl.innerHTML = `<p style="color: green;">${result.message}</p>`;
     } else {
-      responseDiv.innerHTML = `<p style="color: red;">Error: ${result.error || "Something went wrong"}</p>`;
+      messageEl.innerHTML = `<p style="color: red;">Error: ${result.error || "Something went wrong"}</p>`;
     }
   } catch (err) {
-    responseDiv.innerHTML = `<p style="color: red;">Error: ${err.message}</p>`;
+    document.getElementById("response").innerHTML = `<p style="color: red;">Error: ${err.message}</p>`;
   }
 });
