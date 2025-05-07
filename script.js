@@ -56,6 +56,14 @@ document.getElementById("memberForm").addEventListener("submit", async (e) => {
     document.getElementById("response").innerHTML = `<p style="color:red;">Please fill in all required fields.</p>`;
     return;
   }
+  
+  // Validate 10-digit mobile number
+  const phoneRegex = /^\d{10}$/;
+  if (!phoneRegex.test(phoneInput.value.trim())) {
+    document.getElementById("response").innerHTML = `<p style="color:red;">Please enter a valid 10-digit mobile number.</p>`;
+    return;
+  }
+  
 
   const form = e.target;
   const formData = new FormData(form);
@@ -79,15 +87,3 @@ document.getElementById("memberForm").addEventListener("submit", async (e) => {
   }
 });
 
-
-if (!nameInput.value.trim() || !phoneInput.value.trim() || !addressInput.value.trim()) {
-  document.getElementById("response").innerHTML = `<p style="color:red;">Please fill in all required fields.</p>`;
-  return;
-}
-
-// Validate 10-digit mobile number
-const phoneRegex = /^\d{10}$/;
-if (!phoneRegex.test(phoneInput.value.trim())) {
-  document.getElementById("response").innerHTML = `<p style="color:red;">Please enter a valid 10-digit mobile number.</p>`;
-  return;
-}
