@@ -1,50 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1" />
-  <title>Edit/Add Member</title>
-  <link rel="stylesheet" href="style.css" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1"
+    />
+    <title>Edit/Add Member</title>
+    <link rel="stylesheet" href="style.css" />
 
-  <!-- Cropper.js CSS -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet" />
-</head>
-<body>
-  <div class="form-container">
-    <h2>Edit Member</h2>
-    <form id="memberForm" novalidate>
-      <select name="roll_no" id="roll_no" required>
-        <option value="">Select Roll Number</option>
-      </select>
+    <!-- Cropper.js CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="form-container">
+      <h2>Edit Member</h2>
+      <form id="memberForm" novalidate>
+        <select name="roll_no" id="roll_no" required>
+          <option value="">Select Roll Number</option>
+        </select>
 
-      <input type="text" readonly name="name" id="name" placeholder="First Name" required />
-      <input type="text" readonly name="last_name" id="last_name" placeholder="Last Name" />
-      <input type="text" name="phone_no" id="phone_no" placeholder="Phone Number" required pattern="\d{10}" maxlength="10" />
-      <input type="text" name="address" id="address" placeholder="Address" required />
+        <input
+          type="text"
+          readonly
+          name="name"
+          id="name"
+          placeholder="First Name"
+          required
+        />
+        <input
+          type="text"
+          readonly
+          name="last_name"
+          id="last_name"
+          placeholder="Last Name"
+        />
+        <input
+          type="text"
+          name="phone_no"
+          id="phone_no"
+          placeholder="Phone Number"
+          required
+          pattern="\d{10}"
+          maxlength="10"
+        />
+        <input
+          type="text"
+          name="address"
+          id="address"
+          placeholder="Address"
+          required
+        />
 
-      <!-- File upload -->
-      <label for="imageUpload" class="custom-file-upload">Upload Image</label>
-      <input type="file" name="image" id="imageUpload" accept="image/*" />
+        <!-- File upload -->
+        <label for="imageUpload" class="custom-file-upload">Upload Image</label>
+        <input type="file" name="image" id="imageUpload" accept="image/*" />
 
-      <!-- Image preview and crop -->
-      <div id="imagePreviewContainer" style="display:none; margin-top:10px;">
-        <img id="imagePreview" style="max-width:100%; max-height:300px;" />
-        <div class="crop-controls">
-          <button type="button" id="rotateLeft">⟲ Rotate Left</button>
-          <button type="button" id="rotateRight">⟳ Rotate Right</button>
-          <button type="button" id="cropButton">Crop Image</button>
+        <!-- Image preview and crop -->
+        <div id="image-controls">
+          <button id="editBtn">Edit</button>
+          <button id="cropBtn" style="display: none">Crop</button>
+          <button id="rotateBtn" style="display: none">Rotate</button>
+
+          <!-- Confirmation buttons (initially hidden) -->
+          <div id="cropConfirm" style="display: none; margin-top: 10px">
+            <p>Confirm crop?</p>
+            <button id="confirmCropBtn">OK</button>
+            <button id="cancelCropBtn">Cancel</button>
+          </div>
         </div>
-      </div>
 
-      <button type="submit">Submit</button>
-    </form>
-    <div id="response"></div>
-  </div>
+        <!-- Example image tag (already in your code) -->
+        <img id="preview" src="" />
 
-  <!-- Cropper.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+        <button type="submit">Submit</button>
+      </form>
+      <div id="response"></div>
+    </div>
 
-  <!-- Main JS -->
-  <script src="script.js"></script>
-</body>
+    <!-- Cropper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+
+    <!-- Main JS -->
+    <script src="script.js"></script>
+  </body>
 </html>
