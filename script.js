@@ -5,6 +5,7 @@ const nameInput = document.getElementById("name");
 const lastNameInput = document.getElementById("last_name");
 const phoneInput = document.getElementById("phone_no");
 const addressInput = document.getElementById("address");
+const responseDiv = document.getElementById("response");
 
 const setMembers = (members) => {
   members.forEach((member) => {
@@ -52,18 +53,21 @@ rollNoSelect.addEventListener("change", () => {
 document.getElementById("memberForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  if (!nameInput.value.trim() || !phoneInput.value.trim() || !addressInput.value.trim()) {
-    document.getElementById("response").innerHTML = `<p style="color:red;">Please fill in all required fields.</p>`;
+  const name = nameInput.value.trim();
+  const phone = phoneInput.value.trim();
+  const address = addressInput.value.trim();
+
+  if (!name || !phone || !address) {
+    responseDiv.innerHTML = `<p style="color:red;">Please fill in all required fields.</p>`;
     return;
   }
-  
-  // Validate 10-digit mobile number
-  const phoneRegex = /^\d{10}$/;
-  if (!phoneRegex.test(phoneInput.value.trim())) {
-    document.getElementById("response").innerHTML = `<p style="color:red;">Please enter a valid 10-digit mobile number.</p>`;
+
+  // Regex: Starts with 6-9 and has exactly 10 digits
+  const phoneRegex = /^[6-9]\d{9}$/;
+  if (!phoneRegex.test(phone)) {
+    responseDiv.innerHTML = `<p style="color:red;">Please enter a valid 10-digit mobile number starting with 6-9.</p>`;
     return;
   }
-  
 
   const form = e.target;
   const formData = new FormData(form);
@@ -75,15 +79,12 @@ document.getElementById("memberForm").addEventListener("submit", async (e) => {
     });
 
     const result = await response.json();
-    const messageEl = document.getElementById("response");
-
     if (response.ok) {
-      messageEl.innerHTML = `<p style="color: green;">${result.message}</p>`;
+      responseDiv.innerHTML = `<p style="color: green;">${result.message}</p>`;
     } else {
-      messageEl.innerHTML = `<p style="color: red;">Error: ${result.error || "Something went wrong"}</p>`;
+      responseDiv.innerHTML = `<p style="color: red;">Error: ${result.error || "Something went wrong"}</p>`;
     }
   } catch (err) {
-    document.getElementById("response").innerHTML = `<p style="color: red;">Error: ${err.message}</p>`;
+    responseDiv.innerHTML = `<p style="color: red;">Error: ${err.message}</p>`;
   }
 });
-

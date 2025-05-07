@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Edit/Add Member</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -13,10 +13,13 @@
       <select name="roll_no" id="roll_no" required>
         <option value="">Select Roll Number</option>
       </select>
-      
+
       <input type="text" readonly name="name" id="name" placeholder="First Name" required />
       <input type="text" readonly name="last_name" id="last_name" placeholder="Last Name" />
-      <input type="text" name="phone_no" id="phone_no" placeholder="Phone Number" required pattern="\d{10}" maxlength="10" />
+      
+      <!-- Phone number input with pattern for 10-digit numbers starting with 6-9 -->
+      <input type="text" name="phone_no" id="phone_no" placeholder="Phone Number" required pattern="[6-9]{1}[0-9]{9}" maxlength="10" />
+
       <input type="text" name="address" id="address" placeholder="Address" required />
 
       <!-- Custom file upload -->
