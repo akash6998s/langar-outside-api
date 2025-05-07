@@ -72,6 +72,14 @@ imageUpload.addEventListener("change", (e) => {
     cropper = new Cropper(imagePreview, {
       aspectRatio: 1,
       viewMode: 1,
+      responsive: true,
+      scalable: true,
+      zoomable: true,
+      movable: true,
+      dragMode: 'move',
+      background: false,
+      autoCropArea: 1,
+      toggleDragModeOnDblclick: false,
     });
   };
   reader.readAsDataURL(file);
@@ -83,23 +91,18 @@ cropButton.addEventListener("click", () => {
   cropper.getCroppedCanvas().toBlob((blob) => {
     const croppedFile = new File([blob], "cropped-image.png", { type: "image/png" });
 
-    // Set cropped image to input
     const dataTransfer = new DataTransfer();
     dataTransfer.items.add(croppedFile);
     imageUpload.files = dataTransfer.files;
 
-    // Destroy cropper and show cropped preview
     cropper.destroy();
     cropper = null;
 
     const previewURL = URL.createObjectURL(blob);
     imagePreview.src = previewURL;
-
-    // Optional: remove crop button and show only the result
     cropButton.style.display = "none";
   });
 });
-
 
 // Form submit
 document.getElementById("memberForm").addEventListener("submit", async (e) => {
