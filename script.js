@@ -147,7 +147,8 @@ document.getElementById("memberForm").addEventListener("submit", async (e) => {
     const messageEl = document.getElementById("response");
 
     if (response.ok) {
-      messageEl.innerHTML = `<p style="color: green;">${result.message}</p>`;
+      alert("Update Successfully ✅");
+      location.reload(); // Reload the page after alert
     } else {
       messageEl.innerHTML = `<p style="color: red;">Error: ${result.error || "Something went wrong"}</p>`;
     }
