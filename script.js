@@ -10,6 +10,8 @@ const imageUpload = document.getElementById("imageUpload");
 const imagePreview = document.getElementById("imagePreview");
 const imagePreviewContainer = document.getElementById("imagePreviewContainer");
 const cropButton = document.getElementById("cropButton");
+const rotateLeft = document.getElementById("rotateLeft");
+const rotateRight = document.getElementById("rotateRight");
 
 let cropper;
 
@@ -85,6 +87,17 @@ imageUpload.addEventListener("change", (e) => {
   reader.readAsDataURL(file);
 });
 
+// Rotate left
+rotateLeft.addEventListener("click", () => {
+  if (cropper) cropper.rotate(-90);
+});
+
+// Rotate right
+rotateRight.addEventListener("click", () => {
+  if (cropper) cropper.rotate(90);
+});
+
+// Crop and replace file
 cropButton.addEventListener("click", () => {
   if (!cropper) return;
 
@@ -101,6 +114,8 @@ cropButton.addEventListener("click", () => {
     const previewURL = URL.createObjectURL(blob);
     imagePreview.src = previewURL;
     cropButton.style.display = "none";
+    rotateLeft.style.display = "none";
+    rotateRight.style.display = "none";
   });
 });
 

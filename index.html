@@ -29,7 +29,11 @@
       <!-- Image preview and crop -->
       <div id="imagePreviewContainer" style="display:none; margin-top:10px;">
         <img id="imagePreview" style="max-width:100%; max-height:300px;" />
-        <button type="button" id="cropButton" style="margin-top:10px;">Crop Image</button>
+        <div class="crop-controls">
+          <button type="button" id="rotateLeft">⟲ Rotate Left</button>
+          <button type="button" id="rotateRight">⟳ Rotate Right</button>
+          <button type="button" id="cropButton">Crop Image</button>
+        </div>
       </div>
 
       <button type="submit">Submit</button>
