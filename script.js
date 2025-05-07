@@ -1,4 +1,7 @@
 let allMembers = [];
+const showLoader = () => document.getElementById("loader").style.display = "flex";
+const hideLoader = () => document.getElementById("loader").style.display = "none";
+
 
 const rollNoSelect = document.getElementById("roll_no");
 const nameInput = document.getElementById("name");
@@ -26,6 +29,7 @@ const setMembers = (members) => {
 };
 
 const fetchMembers = async () => {
+  showLoader();
   try {
     const res = await fetch("https://langar-db-csvv.onrender.com/member-full-details");
     const data = await res.json();
@@ -37,8 +41,11 @@ const fetchMembers = async () => {
     }
   } catch (err) {
     console.error("Error fetching members:", err);
+  } finally {
+    hideLoader();
   }
 };
+
 
 fetchMembers();
 
@@ -122,20 +129,22 @@ cropButton.addEventListener("click", () => {
 // Form submit
 document.getElementById("memberForm").addEventListener("submit", async (e) => {
   e.preventDefault();
+  const messageEl = document.getElementById("response");
 
   if (!nameInput.value.trim() || !phoneInput.value.trim() || !addressInput.value.trim()) {
-    document.getElementById("response").innerHTML = `<p style="color:red;">Please fill in all required fields.</p>`;
+    messageEl.innerHTML = `<p style="color:red;">Please fill in all required fields.</p>`;
     return;
   }
 
   const phoneRegex = /^\d{10}$/;
   if (!phoneRegex.test(phoneInput.value.trim())) {
-    document.getElementById("response").innerHTML = `<p style="color:red;">Please enter a valid 10-digit mobile number.</p>`;
+    messageEl.innerHTML = `<p style="color:red;">Please enter a valid 10-digit mobile number.</p>`;
     return;
   }
 
   const form = e.target;
   const formData = new FormData(form);
+  showLoader();
 
   try {
     const response = await fetch("https://langar-db-csvv.onrender.com/edit-member", {
@@ -144,16 +153,17 @@ document.getElementById("memberForm").addEventListener("submit", async (e) => {
     });
 
     const result = await response.json();
-    const messageEl = document.getElementById("response");
 
     if (response.ok) {
       alert("Update Successfully ✅");
-      location.reload(); // Reload the page after alert
+      location.reload();
     } else {
       messageEl.innerHTML = `<p style="color: red;">Error: ${result.error || "Something went wrong"}</p>`;
     }
   } catch (err) {
-    document.getElementById("response").innerHTML = `<p style="color: red;">Error: ${err.message}</p>`;
+    messageEl.innerHTML = `<p style="color: red;">Error: ${err.message}</p>`;
+  } finally {
+    hideLoader();
   }
 });
 
@@ -165,7 +175,7 @@ unlockArea.addEventListener("touchstart", () => {
   pressTimer = setTimeout(() => {
     [nameInput, lastNameInput].forEach(input => input.removeAttribute("readonly"));
     alert("Readonly fields are now editable.");
-  }, 5000); // 5000ms = 5 seconds
+  }, 5000);
 });
 
 unlockArea.addEventListener("touchend", () => {
