@@ -27,22 +27,14 @@
       <input type="file" name="image" id="imageUpload" accept="image/*" />
 
       <!-- Image preview and crop -->
-      <div id="image-controls">
-        <button id="editBtn">Edit</button>
-        <button id="cropBtn" style="display: none;">Crop</button>
-        <button id="rotateBtn" style="display: none;">Rotate</button>
-      
-        <!-- Confirmation buttons (initially hidden) -->
-        <div id="cropConfirm" style="display: none; margin-top: 10px;">
-          <p>Confirm crop?</p>
-          <button id="confirmCropBtn">OK</button>
-          <button id="cancelCropBtn">Cancel</button>
+      <div id="imagePreviewContainer" style="display:none; margin-top:10px;">
+        <img id="imagePreview" style="max-width:100%; max-height:300px;" />
+        <div class="crop-controls">
+          <button type="button" id="rotateLeft">⟲ Rotate Left</button>
+          <button type="button" id="rotateRight">⟳ Rotate Right</button>
+          <button type="button" id="cropButton">Crop Image</button>
         </div>
       </div>
-      
-      <!-- Example image tag (already in your code) -->
-      <img id="preview" src="" />
-      
 
       <button type="submit">Submit</button>
     </form>
