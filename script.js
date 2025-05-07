@@ -158,7 +158,16 @@ document.getElementById("memberForm").addEventListener("submit", async (e) => {
 });
 
 
-document.getElementById("unlockArea").addEventListener("click", () => {
-  [nameInput, lastNameInput].forEach(input => input.removeAttribute("readonly"));
-  alert("Readonly fields are now editable.");
+const unlockArea = document.getElementById("unlockArea");
+let pressTimer;
+
+unlockArea.addEventListener("touchstart", () => {
+  pressTimer = setTimeout(() => {
+    [nameInput, lastNameInput].forEach(input => input.removeAttribute("readonly"));
+    alert("Readonly fields are now editable.");
+  }, 5000); // 5000ms = 5 seconds
+});
+
+unlockArea.addEventListener("touchend", () => {
+  clearTimeout(pressTimer);
 });
