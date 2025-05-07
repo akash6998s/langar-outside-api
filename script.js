@@ -10,7 +10,7 @@ const setMembers = (members) => {
 
 const fetchMembers = async () => {
   try {
-    const res = await fetch("http://localhost:5000/member-full-details");
+    const res = await fetch("https://langar-db-csvv.onrender.com/member-full-details");
     const data = await res.json();
     if (data && Array.isArray(data)) {
       setMembers(data);
