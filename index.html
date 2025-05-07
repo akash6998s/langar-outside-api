@@ -3,23 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Edit Member</title>
+  <title>Edit/Add Member</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="form-container">
-    <h2>Edit Member Details</h2>
-    <form id="memberForm">
+    <h2>Edit Member</h2>
+    <form id="memberForm" novalidate>
       <select name="roll_no" id="roll_no" required>
         <option value="">Select Roll Number</option>
       </select>
-      <input type="text" name="name" placeholder="First Name" />
-      <input type="text" name="last_name" placeholder="Last Name" />
-      <input type="text" name="phone_no" placeholder="Phone Number" />
-      <input type="text" name="address" placeholder="Address" />
+      
+      <input type="text" name="name" id="name" placeholder="First Name" required />
+      <input type="text" name="last_name" id="last_name" placeholder="Last Name (optional)" />
+      <input type="text" name="phone_no" id="phone_no" placeholder="Phone Number" required />
+      <input type="text" name="address" id="address" placeholder="Address" required />
 
-      <!-- File Upload -->
-      <label for="imageUpload" class="custom-file-upload">Upload Image</label>
+      <!-- Custom file upload -->
+      <label for="imageUpload" class="custom-file-upload">Upload Image (optional)</label>
       <input type="file" name="image" id="imageUpload" accept="image/*" />
 
       <button type="submit">Submit</button>

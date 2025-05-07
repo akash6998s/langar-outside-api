@@ -4,6 +4,15 @@
   box-sizing: border-box;
 }
 
+input, select {
+  width: 100%;
+}
+
+form > input::placeholder {
+  color: #b28b60;
+}
+
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(to right, #fff8e1, #ffe0b2);
