@@ -10,7 +10,7 @@ const setMembers = (members) => {
   members.forEach((member) => {
     const option = document.createElement("option");
     option.value = member.roll_no;
-    option.textContent = `${member.roll_no} - ${member.name} ${member.last_name}`;
+    option.textContent = member.roll_no;
     rollNoSelect.appendChild(option);
   });
 };
