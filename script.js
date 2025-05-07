@@ -15,37 +15,6 @@ const rotateRight = document.getElementById("rotateRight");
 
 let cropper;
 
-const editBtn = document.getElementById("editBtn");
-const cropBtn = document.getElementById("cropBtn");
-const rotateBtn = document.getElementById("rotateBtn");
-const cropConfirm = document.getElementById("cropConfirm");
-const confirmCropBtn = document.getElementById("confirmCropBtn");
-const cancelCropBtn = document.getElementById("cancelCropBtn");
-const preview = document.getElementById("preview");
-
-// Show Crop and Rotate buttons on Edit
-editBtn.addEventListener("click", () => {
-  cropBtn.style.display = "inline-block";
-  rotateBtn.style.display = "inline-block";
-});
-
-// Show crop confirmation options
-cropBtn.addEventListener("click", () => {
-  cropConfirm.style.display = "block";
-});
-
-// Confirm Crop
-confirmCropBtn.addEventListener("click", () => {
-  // ✅ You can replace this with actual crop logic if needed
-  alert("Image cropped!");
-  cropConfirm.style.display = "none";
-});
-
-// Cancel Crop
-cancelCropBtn.addEventListener("click", () => {
-  cropConfirm.style.display = "none";
-});
-
 
 // Load members
 const setMembers = (members) => {
