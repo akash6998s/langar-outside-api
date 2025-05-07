@@ -5,7 +5,7 @@ document.getElementById("memberForm").addEventListener("submit", async (e) => {
     const formData = new FormData(form);
   
     try {
-      const response = await fetch("http://localhost:5000/edit-member", {
+      const response = await fetch("https://langar-db-csvv.onrender.com/edit-member", {
         method: "POST",
         body: formData,
       });
