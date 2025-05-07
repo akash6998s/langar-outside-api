@@ -65,7 +65,7 @@ document.getElementById("memberForm").addEventListener("submit", async (e) => {
   // Regex: Starts with 6-9 and has exactly 10 digits
   const phoneRegex = /^[6-9]\d{9}$/;
   if (!phoneRegex.test(phone)) {
-    responseDiv.innerHTML = `<p style="color:red;">Please enter a valid 10-digit mobile number starting with 6-9.</p>`;
+    responseDiv.innerHTML = `<p style="color:red;">Please enter a valid 10-digit mobile number</p>`;
     return;
   }
 
